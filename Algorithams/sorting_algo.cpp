@@ -102,13 +102,30 @@ public:
     quick_sort(array, pivot + 1, r);
   }
 
+  void counting_sort(int array[], const int size) {
+    int max_element = array[0];
+    for(int i=0; i<size; i++) max(max_element, array[i]);
+
+    int count[max_element + 1];
+    for(int i=0; i<max_element+1; i++) count[i] = 0;
+    for(int i=0; i<size; i++) count[array[i]]++;
+
+    int idx = 0;
+    for(int i=0; i<max_element+1; i++) {
+      while(count[i]) {
+        array[idx++] = i;
+        count[i]--;
+      }
+    }
+  }
+
 };
 
 int main() {
-  int array[10] = {2, 5, 4, 1, 0, 6, 18, 12, 9, 10};
+  int array[10] = {9, 2, 3, 4, 2, 3, 4, 5, 6, 1};
   Sorting_algo s1;
   print_array(array, 10);
-  s1.quick_sort(array, 0, 9);
+  s1.counting_sort(array, 10);
   print_array(array, 10);
 
   return 0;
