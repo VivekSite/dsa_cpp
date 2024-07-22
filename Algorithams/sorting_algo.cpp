@@ -119,13 +119,35 @@ public:
     }
   }
 
+  void dnf_sort(int array[], const int size) {
+    int low = 0, mid = 0;
+    int high = size-1;
+
+    while(mid < high) {
+      switch (array[mid])
+      {
+      case 0: 
+        swap(array, low, mid);
+        mid++; low++;
+        break;
+      case 1:
+        mid++;
+        break;
+      case 2:
+        swap(array, high, mid);
+        high--;
+        break;
+      }
+    }
+  }
+
 };
 
 int main() {
-  int array[10] = {9, 2, 3, 4, 2, 3, 4, 5, 6, 1};
+  int array[10] = {1, 0, 2, 1, 0, 1, 2, 1, 2, 2};
   Sorting_algo s1;
   print_array(array, 10);
-  s1.counting_sort(array, 10);
+  s1.dnf_sort(array, 10);
   print_array(array, 10);
 
   return 0;
