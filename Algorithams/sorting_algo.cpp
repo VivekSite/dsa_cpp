@@ -21,6 +21,27 @@ private:
     while(j < n2) array[k++] = right[j++];
   }
 
+  void swap(int array[], int i, int j) {
+    int temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  int partition(int array[], int l, int r) {
+    int pivot = array[r];
+    int i = l - 1;
+
+    for(int j = l; j < r; j++) {
+      if(array[j] < pivot) {
+        i++;
+        swap(array, i, j);
+      }
+    }
+
+    swap(array, i+1, r);
+    return i+1;
+  }
+
 public:
   void bubble_sort(int* array, const int size) {
     bool swapped;
@@ -73,9 +94,9 @@ public:
     merge(array, l, mid, r);
   }
 
-  void quick_sort(int* array, const int l, const int r) {
+  void quick_sort(int array[], const int l, const int r) {
     if(l >= r) return;
-
+  
     int pivot = partition(array, l, r);
     quick_sort(array, l, pivot - 1);
     quick_sort(array, pivot + 1, r);
@@ -87,7 +108,7 @@ int main() {
   int array[10] = {2, 5, 4, 1, 0, 6, 18, 12, 9, 10};
   Sorting_algo s1;
   print_array(array, 10);
-  s1.merge_sort(array, 0, 9);
+  s1.quick_sort(array, 0, 9);
   print_array(array, 10);
 
   return 0;
