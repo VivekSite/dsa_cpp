@@ -141,14 +141,24 @@ public:
     }
   }
 
+  void wave_sort(int array[], const int size) {
+    for(int i=1; i<size-1; i+=2) {
+      if(array[i] > array[i-1]) swap(array, i, i-1);
+
+      if(array[i] > array[i+1] && i <= size-2) {
+        swap(array, i, i+1);
+      } 
+    }
+  }
+
 };
 
 int main() {
-  int array[10] = {1, 0, 2, 1, 0, 1, 2, 1, 2, 2};
+  int array[7] = {1, 3, 4, 7, 5, 6, 2};
   Sorting_algo s1;
-  print_array(array, 10);
-  s1.dnf_sort(array, 10);
-  print_array(array, 10);
+  print_array(array, 7);
+  s1.wave_sort(array, 7);
+  print_array(array, 7);
 
   return 0;
 }
