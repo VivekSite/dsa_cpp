@@ -1,0 +1,37 @@
+/*
+  Precedence
+  1. ()       -> 
+  2. ^        -> Associativity R to L
+  3. *, /     -> Associativity L to R
+  4. +, -     -> Associativity L to R
+  
+*/
+
+/*
+  Computer does not understand
+  Human-readable
+  Infix Expressions <operand>[operator]<operand>
+  Example: 
+    4 * 2 + 3
+*/
+
+/* 
+  Computer readable
+  Polish Notation
+  Prefix Expressions [operator]<operand><operand>
+  Example:
+    + * 4 2 3
+
+  Conversion Trick
+    ((4 * 2) + 3)  -> add brackets according to precedence
+    +( *(4 2) 3)   -> put the sign outside of brackets according
+    -> start with inner brackets
+
+*/
+
+/*
+  Reverse Polish Notation
+  Postfix Expressions <operand><operand>[operator]
+  Example:
+    4 2 * 3 +
+*/
