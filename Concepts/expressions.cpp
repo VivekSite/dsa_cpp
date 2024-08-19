@@ -117,13 +117,13 @@ public:
       {
         res += str[i];
       }
-      else if (str[i] == '(')
+      else if (str[i] == ')')
       {
-        st.push('(');
+        st.push(')');
       }
       else if (str[i] == ')')
       {
-        while (!st.empty() && st.top() != '(')
+        while (!st.empty() && st.top() != ')')
         {
           res += st.top();
           st.pop();
@@ -136,7 +136,7 @@ public:
       }
       else
       {
-        while (!st.empty() && precedence(st.top()) > precedence(str[i]))
+        while (!st.empty() && precedence(st.top()) >= precedence(str[i]))
         {
           res += st.top();
           st.pop();
@@ -153,7 +153,57 @@ public:
     return res;
   }
 
-  
+  string infix_to_prefix(string str)
+  {
+    reverse(str.begin(), str.end());
+    stack<char> st;
+    string res;
+
+    for (int i = 0; i < str.length(); i++)
+    {
+      if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+      {
+        res += str[i];
+      }
+      else if (str[i] == ')')
+      {
+        st.push(')');
+      }
+      else if (str[i] == '(')
+      {
+        while (!st.empty() && st.top() != ')')
+        {
+          res += st.top();
+          st.pop();
+        }
+
+        if (!st.empty())
+        {
+          st.pop();
+        }
+      }
+      else
+      {
+        while (!st.empty() && precedence(st.top()) >= precedence(str[i]))
+        {
+          res += st.top();
+          st.pop();
+        }
+        st.push(str[i]);
+      }
+    }
+
+    while (!st.empty())
+    {
+      res += st.top();
+      st.pop();
+    }
+
+    reverse(res.begin(), res.end());
+    return res;
+  }
+
+
 };
 
 int main()
@@ -161,7 +211,8 @@ int main()
   Expression_Function ef;
   // cout << "Prefix Result: " << ef.evaluate_prefix("-+7*45+20") << ", Expected: 25" << lb;
   // cout << "Postfix Result: " << ef.evaluate_postfix("46+2/5*7+") << ", Expected: 32" << lb;
-  cout << "Infix To Postfix Result: " << ef.infix_to_postfix("(a-b/c)*(a/k-l)") << ", Expected: abc/-ak/l-*" << lb;
+  // cout << "Infix To Postfix Result: " << ef.infix_to_postfix("(a-b/c)*(a/k-l)") << ", Expected: abc/-ak/l-*" << lb;
+  // cout << "Infix To Prefix Result: " << ef.infix_to_prefix("(a-b/c)*(a/k-l)") << ", Expected: *-a/bc-/akl" << lb;
 
   return 0;
 }
