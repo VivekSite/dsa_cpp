@@ -29,6 +29,27 @@ public:
     }
     return ans; 
   }
+
+  int trap_rain_water(vector<int> arr) {
+    int n = arr.size();
+    stack<int> st;
+    int ans = 0;
+
+    for (int i=0; i<n; i++) {
+      while (!st.empty() && arr[st.top()] < arr[i]) {
+        int top = st.top();
+        st.pop();
+
+        if (st.empty()) break;
+        int len = i - st.top() - 1;
+        ans += (min(arr[st.top()], arr[i]) - arr[top]) * len;
+      }
+      st.push(i);
+    }
+    return ans;
+  }
+
+  
 };
 
 int main() {
@@ -36,14 +57,24 @@ int main() {
   // {2, 1, 5, 6, 2, 3}
   //  0  1  2  3  4  5
   vector<int> arr;
+  arr.push_back(0);
+  arr.push_back(1);
+  arr.push_back(0);
+
   arr.push_back(2);
   arr.push_back(1);
-  arr.push_back(5);
-  arr.push_back(6);
-  arr.push_back(2);
-  arr.push_back(3);
+  arr.push_back(0);
 
-  cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
+  arr.push_back(1);
+  arr.push_back(3);
+  arr.push_back(2);
+
+  arr.push_back(1);
+  arr.push_back(2);
+  arr.push_back(1);
+
+  // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
+  cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
 
   return 0;
 }
