@@ -123,7 +123,7 @@ public:
     int low = 0, mid = 0;
     int high = size-1;
 
-    while(mid < high) {
+    while(mid <= high) {
       switch (array[mid])
       {
       case 0: 
