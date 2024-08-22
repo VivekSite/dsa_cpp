@@ -49,7 +49,23 @@ public:
     return ans;
   }
 
-  
+  bool redundant_paranthesis(string str) {
+    stack<char> st;
+
+    for (int i=0; i<str.length(); i++) {
+      if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/' || str[i] == '(') {
+        st.push(str[i]);
+      } else if (str[i] == ')') {
+        if (st.top() == '(') return true;
+        while (st.top() == '+' || st.top() == '-' || st.top() == '*' || st.top() == '/') {
+          st.pop();
+        }
+        st.pop();
+      }
+    }
+
+    return false;
+  }
 };
 
 int main() {
@@ -74,7 +90,8 @@ int main() {
   arr.push_back(1);
 
   // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
-  cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
+  // cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
+  cout << "Is Redundant Paranthesis Present: " << q.redundant_paranthesis("((a + b))") << lb;
 
   return 0;
 }
