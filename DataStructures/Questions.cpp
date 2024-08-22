@@ -89,9 +89,13 @@ public:
 
     for (int i = 0; i < arr.size(); i++) {
       int low = i + 1, high = arr.size() - 1;
+
       while (low < high) {
-        if (target == (arr[low] + arr[high] + arr[i])) return true;
-        high--; low++;
+        int current = arr[low] + arr[high] + arr[i];
+
+        if (target == current) return true;
+        else if (current > target) high--;
+        else low++;
       }
     }
 
@@ -123,7 +127,7 @@ int main() {
   // }
   // cout << lb;
 
-  cout << q.three_sum(arr, 230) << lb;
+  cout << q.three_sum(arr, 20) << lb;
 
   return 0;
 }
