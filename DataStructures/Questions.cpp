@@ -66,6 +66,24 @@ public:
 
     return false;
   }
+
+  vector<int> stockspan(vector<int> prices) {
+    vector<int> ans;
+    stack<pair<int, int> > st;
+
+    for (int i=0; i<prices.size(); i++) {
+      int days = 1;
+      while (!st.empty() && st.top().first <= prices[i]) {
+        days += st.top().second;
+        st.pop();
+      }
+      st.push(make_pair(prices[i], days));
+      ans.push_back(days);
+    }
+
+    return ans;
+  }
+
 };
 
 int main() {
@@ -73,25 +91,23 @@ int main() {
   // {2, 1, 5, 6, 2, 3}
   //  0  1  2  3  4  5
   vector<int> arr;
-  arr.push_back(0);
-  arr.push_back(1);
-  arr.push_back(0);
-
-  arr.push_back(2);
-  arr.push_back(1);
-  arr.push_back(0);
-
-  arr.push_back(1);
-  arr.push_back(3);
-  arr.push_back(2);
-
-  arr.push_back(1);
-  arr.push_back(2);
-  arr.push_back(1);
+  arr.push_back(100);
+  arr.push_back(80);
+  arr.push_back(60);
+  arr.push_back(70);
+  arr.push_back(60);
+  arr.push_back(75);
+  arr.push_back(85);
 
   // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
   // cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
-  cout << "Is Redundant Paranthesis Present: " << q.redundant_paranthesis("((a + b))") << lb;
+  // cout << "Is Redundant Paranthesis Present: " << q.redundant_paranthesis("((a + b))") << lb;
+  vector<int> stockspan = q.stockspan(arr);
+  cout << "The Size is: " << stockspan.size() << lb;
+  for (int i=0; i<stockspan.size(); i++) {
+    cout << stockspan[i] << " ";
+  }
+  cout << lb;
 
   return 0;
 }
