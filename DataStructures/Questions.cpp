@@ -84,6 +84,20 @@ public:
     return ans;
   }
 
+  bool three_sum(vector<int> arr, int target) {
+    sort(arr.begin(), arr.end());
+
+    for (int i = 0; i < arr.size(); i++) {
+      int low = i + 1, high = arr.size() - 1;
+      while (low < high) {
+        if (target == (arr[low] + arr[high] + arr[i])) return true;
+        high--; low++;
+      }
+    }
+
+    return false;
+  }
+
 };
 
 int main() {
@@ -102,12 +116,14 @@ int main() {
   // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
   // cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
   // cout << "Is Redundant Paranthesis Present: " << q.redundant_paranthesis("((a + b))") << lb;
-  vector<int> stockspan = q.stockspan(arr);
-  cout << "The Size is: " << stockspan.size() << lb;
-  for (int i=0; i<stockspan.size(); i++) {
-    cout << stockspan[i] << " ";
-  }
-  cout << lb;
+  // vector<int> stockspan = q.stockspan(arr);
+  // cout << "The Size is: " << stockspan.size() << lb;
+  // for (int i=0; i<stockspan.size(); i++) {
+  //   cout << stockspan[i] << " ";
+  // }
+  // cout << lb;
+
+  cout << q.three_sum(arr, 230) << lb;
 
   return 0;
 }
