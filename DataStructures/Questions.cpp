@@ -102,20 +102,40 @@ public:
     return false;
   }
 
+  int max_consecutive_ones_with_k_zeros(int arr[],int size, int k) {
+    int k_count = 0;
+    int start = 0;
+    int ans = 0;
+
+    for (int end=0; end<size; end++) {
+      if (arr[end] == 0) k_count++;
+
+      if (k_count > k) {
+        while (arr[start] != 0) start++;
+        start++;
+        k_count--;
+      }
+      ans = max(ans, end-start+1);
+    }
+
+    return ans;
+  }
+
+
 };
 
 int main() {
   Questions q;
   // {2, 1, 5, 6, 2, 3}
   //  0  1  2  3  4  5
-  vector<int> arr;
-  arr.push_back(100);
-  arr.push_back(80);
-  arr.push_back(60);
-  arr.push_back(70);
-  arr.push_back(60);
-  arr.push_back(75);
-  arr.push_back(85);
+  // vector<int> arr;
+  // arr.push_back(100);
+  // arr.push_back(80);
+  // arr.push_back(60);
+  // arr.push_back(70);
+  // arr.push_back(60);
+  // arr.push_back(75);
+  // arr.push_back(85);
 
   // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
   // cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
@@ -127,7 +147,9 @@ int main() {
   // }
   // cout << lb;
 
-  cout << q.three_sum(arr, 20) << lb;
+  // cout << q.three_sum(arr, 20) << lb;
+  int arr[] = {0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1};
+  cout << "Max Consecutives are: " << q.max_consecutive_ones(arr, 19, 3) << lb;
 
   return 0;
 }
