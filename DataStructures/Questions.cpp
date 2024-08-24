@@ -121,35 +121,24 @@ public:
     return ans;
   }
 
+  int logest_substring_without_repeating(string str) {
+    vector<int> dict(256, -1);
+    int maxLen = 0, start = -1;
 
+    for (int end=0; end<str.length(); end++) {
+      if(dict[str[end]] > start)
+        start = dict[str[end]];
+      
+      dict[str[end]] = end;
+      maxLen = max(maxLen, end-start);
+    }
+
+    return maxLen;
+  }
 };
 
 int main() {
   Questions q;
-  // {2, 1, 5, 6, 2, 3}
-  //  0  1  2  3  4  5
-  // vector<int> arr;
-  // arr.push_back(100);
-  // arr.push_back(80);
-  // arr.push_back(60);
-  // arr.push_back(70);
-  // arr.push_back(60);
-  // arr.push_back(75);
-  // arr.push_back(85);
-
-  // cout << "The max rectangle is: " << q.max_rectangle(arr) << lb;
-  // cout << "Traped water area is: " << q.trap_rain_water(arr) << lb;
-  // cout << "Is Redundant Paranthesis Present: " << q.redundant_paranthesis("((a + b))") << lb;
-  // vector<int> stockspan = q.stockspan(arr);
-  // cout << "The Size is: " << stockspan.size() << lb;
-  // for (int i=0; i<stockspan.size(); i++) {
-  //   cout << stockspan[i] << " ";
-  // }
-  // cout << lb;
-
-  // cout << q.three_sum(arr, 20) << lb;
-  int arr[] = {0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1};
-  cout << "Max Consecutives are: " << q.max_consecutive_ones(arr, 19, 3) << lb;
-
+  cout << q.logest_substring_without_repeating("abcabc") << lb;
   return 0;
 }
