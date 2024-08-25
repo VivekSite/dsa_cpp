@@ -12,42 +12,60 @@ struct Node {
   }
 };
 
-void preorder(struct Node* root) {
+void preorder_print(struct Node* root) {
   if (root == NULL) return;
 
   cout << root->data << " ";
-  preorder(root->left);
-  preorder(root->right);
+  preorder_print(root->left);
+  preorder_print(root->right);
 }
 
-void inorder(struct Node* root) {
+void inorder_print(struct Node* root) {
   if (root == NULL) return;
 
-  preorder(root->left);
+  inorder_print(root->left);
   cout << root->data << " ";
-  preorder(root->right);
+  inorder_print(root->right);
 }
 
-void postorder(struct Node* root) {
+void postorder_print(struct Node* root) {
   if (root == NULL) return;
 
-  preorder(root->left);
-  preorder(root->right);
+  postorder_print(root->left);
+  postorder_print(root->right);
   cout << root->data << " ";
+}
+
+int search(int inorder[], int start, int end, int curr) {
+  for (int i=start; i<=end; i++) {
+    if (inorder[i] ==  curr) return i;
+  }
+
+  return -1;
+}
+
+Node* buildTree(int preorder[], int inorder[], int start, int end) {
+  static int idx = 0;
+  if (start > end) return NULL;
+
+  int curr = preorder[idx];
+  idx++;
+  Node* node = new Node(curr);
+  if (start == end) return node;
+
+  int pos = search(inorder, start, end, curr);
+  node->left = buildTree(preorder, inorder, start, pos-1);
+  node->right = buildTree(preorder, inorder, pos+1, end);
+
+  return node;
 }
 
 int main () {
-  struct Node* root = new Node(1);
-  root->left = new Node(2);
-  root->right = new Node(3);
+  int preorder[] = { 1, 2, 4, 3, 5 };
+  int inorder[] = { 4, 2, 1, 5, 3 };
 
-  preorder(root);
-  cout << lb;
-
-  inorder(root);
-  cout << lb;
-
-  postorder(root);
+  Node* root = buildTree(preorder, inorder, 0, 4);
+  inorder_print(root);
   cout << lb;
 
   return 0;
